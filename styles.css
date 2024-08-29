@@ -1,0 +1,39 @@
+/* CSS Reset for Box-Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* CSS Variables in :root scope to be used for light/dark theme */
+:root {
+  --bg-color: hsl(0, 0%, 96%);
+  --text-color: hsl(0, 0%, 20%);
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 15px;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 1280px) {
+    padding: 30px;
+    align-items: center;
+  }
+}
+
+.slider {
+  width: calc(100% + 30px);
+  margin: 0 -15px;
+  height: 300px;
+  background-color: deeppink;
+
+  @media (min-width: 1280px) {
+    margin: 0;
+    width: 1280px;
+  }
+}
