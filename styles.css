@@ -71,11 +71,37 @@ header {
     background-color: var(--bg-color);
     container-type: inline-size;
 
+    @media (min-width: 1280px) {
+      width: 600px;
+      min-width: 600px;
+    }
+
     .slide-content {
+      height: 100%;
       padding: 15px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+
+      .product-name {
+        display: none;
+      }
+
+      @container (min-width: 550px) {
+        .product-name {
+          display: block;
+        }
+      }
     }
+  }
+
+  /* Not sure if the absolute second slide (index 1 of the array) or the second visible slide (relative to the scroll container and position)
+      should be the one with a reduced width of 500px. Absolute second seems more intuitive from a design perspective to highlight the second slide
+      but not intuitive that it is reduced in width - also seems much more complicated technically -> intersection observer or maybe with has() ...*/
+  .slide-container:nth-child(2) {
+    width: 500px;
+    min-width: 500px;
+    max-width: 500px;
   }
 }
 
