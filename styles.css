@@ -5,10 +5,18 @@
   box-sizing: border-box;
 }
 
+/* CSS Reset for lists and list items */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 /* CSS Variables in :root scope to be used for light/dark theme */
 :root {
   --bg-color: hsl(0, 0%, 96%);
   --text-color: hsl(0, 0%, 20%);
+  --accent-color: hsl(281, 78%, 30%);
 }
 
 body {
@@ -19,6 +27,7 @@ body {
   background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
 
   @media (min-width: 1280px) {
     padding: 30px;
@@ -26,14 +35,56 @@ body {
   }
 }
 
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+
+  @media (min-width: 1280px) {
+    margin-bottom: 30px;
+    width: 1280px;
+  }
+}
+
 .slider {
   width: calc(100% + 30px);
   margin: 0 -15px;
   height: 300px;
-  background-color: deeppink;
+  border: 1px solid deeppink;
+  background-color: hsla(328, 100%, 54%, 0.5);
+  display: flex;
+  gap: 20px;
+  overflow-x: scroll;
+  overflow-y: hidden;
 
   @media (min-width: 1280px) {
     margin: 0;
     width: 1280px;
   }
+
+  .slide-container {
+    width: 500px;
+    min-width: 500px;
+    height: 100%;
+    background-color: var(--bg-color);
+    container-type: inline-size;
+
+    .slide-content {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.light-dark-mode-btn {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
 }
