@@ -15,19 +15,22 @@ ul {
 /* CSS Variables in :root scope to be used for light/dark theme */
 :root {
   --bg-color-1-dark: hsl(0, 0%, 20%);
-  --bg-color-1-light: hsl(0, 0%, 96%);
+  --bg-color-1-light: hsl(0, 0%, 94%);
 
-  --bg-color-2-dark: hsl(0, 0%, 24%);
-  --bg-color-2-light: hsl(0, 0%, 88%);
+  --bg-color-2-dark: hsl(0, 0%, 15%);
+  --bg-color-2-light: hsl(0, 0%, 98%);
 
-  --bg-color-with-alpha-dark: hsla(0, 0%, 20%, 0.7);
-  --bg-color-with-alpha-light: hsla(0, 0%, 96%, 0.7);
+  --bg-color-2-with-alpha-dark: hsla(0, 0%, 15%, 0.7);
+  --bg-color-2-with-alpha-light: hsla(0, 0%, 98%, 0.7);
 
   --text-color-dark: hsl(0, 0%, 90%);
   --text-color-light: hsl(0, 0%, 20%);
 
   --accent-color-dark: hsl(281, 85%, 52%);
   --accent-color-light: hsl(281, 78%, 30%);
+
+  --warning-color-dark: hsl(62, 85%, 52%);
+  --warning-color-light: hsl(58, 100%, 33%);
 
   --skeleton-wave-color-light: hsla(0, 0%, 77%, 0.5);
   --skeleton-wave-color-dark: hsla(0, 0%, 30%, 0.5);
@@ -37,20 +40,22 @@ ul {
   :root {
     --bg-color-1: var(--bg-color-1-dark);
     --bg-color-2: var(--bg-color-2-dark);
+    --bg-color-with-alpha: var(--bg-color-2-with-alpha-dark);
     --text-color: var(--text-color-dark);
     --accent-color: var(--accent-color-dark);
+    --warning-color: var(--warning-color-dark);
     --skeleton-wave-color: var(--skeleton-wave-color-dark);
-    --bg-color-with-alpha: var(--bg-color-with-alpha-dark);
   }
 }
 @media (prefers-color-scheme: light) {
   :root {
     --bg-color-1: var(--bg-color-1-light);
     --bg-color-2: var(--bg-color-2-light);
+    --bg-color-with-alpha: var(--bg-color-2-with-alpha-light);
     --text-color: var(--text-color-light);
     --accent-color: var(--accent-color-light);
+    --warning-color: var(--warning-color-light);
     --skeleton-wave-color: var(--skeleton-wave-color-light);
-    --bg-color-with-alpha: var(--bg-color-with-alpha-light);
   }
 }
 
@@ -97,8 +102,7 @@ header {
 }
 
 .slider {
-  border: 1px solid var(--bg-color-2);
-  background-color: var(--bg-color-2);
+  background-color: var(--bg-color-1);
   display: none;
   gap: 20px;
   overflow-x: scroll;
@@ -109,7 +113,7 @@ header {
     width: 500px;
     min-width: 500px;
     height: 100%;
-    background-color: var(--bg-color-1);
+    background-color: var(--bg-color-2);
     container-type: inline-size;
     scroll-snap-align: center;
 
@@ -213,7 +217,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 5px dashed yellow;
+  border: 5px dashed var(--warning-color);
   color: var(--text-color);
   display: none;
 
