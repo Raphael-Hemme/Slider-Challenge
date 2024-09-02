@@ -26,20 +26,14 @@ const getProducts = async () => {
 const constructSlideContent = (product) => {
   const slideContentElement = document.createElement("div");
   slideContentElement.className = "slide-content";
-  slideContentElement.style.backgroundImage = `url(${product.thumbnail})`;
-  slideContentElement.style.backgroundSize = "contain";
-  slideContentElement.style.backgroundPosition = "right";
-  slideContentElement.style.backgroundRepeat = "no-repeat";
 
   slideContentElement.innerHTML = `
-    <div>
-      <h3 class="product-brand">${product.brand}</h3>
-      <br />
-      <ul>
-        <li>$${product.price}</li>
-        <li>${product.availabilityStatus}</li>
-      </ul>
-    </div>
+    <h3 class="product-brand">${product.brand}</h3>
+    <ul class="product-info">
+      <li>$${product.price}</li>
+      <li>${product.availabilityStatus}</li>
+    </ul>
+    <img src="${product.thumbnail}" alt="${product.title}" class="product-image"/>
     <h4 class="product-title">${product.title}</h4>
   `;
 

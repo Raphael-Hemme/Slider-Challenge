@@ -22,11 +22,9 @@ ul {
 
   --bg-color-with-alpha-dark: hsla(0, 0%, 20%, 0.7);
   --bg-color-with-alpha-light: hsla(0, 0%, 96%, 0.7);
-  /* --bg-color-with-alpha: var(--bg-color-light); */
 
   --text-color-dark: hsl(0, 0%, 90%);
   --text-color-light: hsl(0, 0%, 20%);
-  /* --text-color: var(--text-color-light); */
 
   --accent-color-dark: hsl(281, 85%, 52%);
   --accent-color-light: hsl(281, 78%, 30%);
@@ -122,30 +120,57 @@ header {
 
     .slide-content {
       height: 100%;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: minmax(30%, 300px) 300px;
+      grid-template-rows: 1fr 4fr 1fr;
+      grid-template-areas:
+        "product-brand product-image"
+        "product-info product-image"
+        "product-title product-image";
       color: var(--text-color);
       overflow: hidden;
 
-      h3 {
-        font-weight: bold;
+      .product-brand {
+        grid-area: product-brand;
         margin: 0;
+        padding: 15px 0 0 15px;
+        font-weight: bold;
         color: var(--accent-color);
       }
 
+      .product-info {
+        grid-area: product-info;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 15px 0 0 15px;
+      }
+
       .product-title {
+        grid-area: product-title;
         display: none;
+      }
+
+      .product-image {
+        grid-area: product-image;
+
+        img {
+          width: 100%;
+        }
       }
 
       @container (min-width: 550px) {
         .product-title {
-          display: block;
-          background-color: var(--bg-color-with-alpha);
-          /* I experimented with mix-blend-mode to make the text color stand out even when the background image made it hard to read but was not satisfied with the colors */
-          /* mix-blend-mode: exclusion; */
+          display: flex;
+          align-items: flex-end;
+          padding: 5px 10px 5px 15px;
           margin: 0;
+          position: absolute;
+          bottom: 15px;
+          left: 0;
+          z-index: 10;
+          background-color: var(--bg-color-with-alpha);
         }
       }
     }
