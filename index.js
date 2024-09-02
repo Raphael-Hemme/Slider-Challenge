@@ -1,27 +1,59 @@
-const bgColorLight = "hsl(0, 0%, 96%)";
-const textColorLight = "hsl(0, 0%, 20%)";
-const accentColorLight = "hsl(281, 78%, 30%)";
+const url = "https://dummyjson.com/products";
+const queryParams = "?limit=10";
 
-const bgColorDark = "hsl(0, 0%, 10%)";
-const textColorDark = "hsl(0, 0%, 80%)";
-const accentColorDark = "hsl(281, 78%, 70%)";
+let products = [];
+let isLoading = true;
+let error = "";
 
-const root = document.documentElement;
-let isDarkMode = false;
+const getProducts = async () => {
+  console.log("Fetching products...", new Date().toLocaleTimeString());
 
-const toggleLightDarkMode = () => {
-  console.log("currVal", isDarkMode);
-
-  // Change the values of the CSS variables
-  root.style.setProperty("--bg-color", isDarkMode ? bgColorLight : bgColorDark);
-  root.style.setProperty(
-    "--text-color",
-    isDarkMode ? textColorLight : textColorDark
-  );
-  root.style.setProperty(
-    "--accent-color",
-    isDarkMode ? accentColorLight : accentColorDark
-  );
-
-  isDarkMode = !isDarkMode;
+  try {
+    const response = await fetch(`${url}${queryParams}`);
+    if (!response.ok) {
+      throw new Error(`${response.status} - ${response.statusText}`);
+    }
+    const data = await response.json();
+    console.log(data);
+    products = data.products;
+  } catch (err) {
+    console.error(err);
+    error = err;
+  }
 };
+
+const constructProductSlide = (product) => {
+  const productSlideElement = document.createElement("li");
+  productSlideElement.className = "slide-container";
+  productSlideElement.innerHTML = `
+    <div class="slide-content">
+      <h3 class="product-title">${product.title}</h3>
+    </div>
+  `;
+  return productSlideElement;
+};
+
+const appendProductSlides = (productSlides) => {
+  const sliderElement = document.getElementById("slider");
+  for (const productSlide of productSlides) {
+    sliderElement.appendChild(productSlide);
+  }
+};
+
+const toggleLoading = () => {
+  isLoading = !isLoading;
+  const skeletonContainerElement =
+    document.getElementById("skeleton-container");
+  skeletonContainerElement.style.display = isLoading ? "block" : "none";
+};
+
+const boot = async () => {
+  await getProducts();
+  const productSlides = products.map((product) => {
+    return constructProductSlide(product);
+  });
+  appendProductSlides(productSlides);
+  toggleLoading();
+};
+
+boot();
