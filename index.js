@@ -5,12 +5,13 @@ let products = [];
 let isLoading = true;
 let error = "";
 
+let currentIndex = 0;
+
 const getProducts = async () => {
   console.log("Fetching products...", new Date().toLocaleTimeString());
 
   try {
     const response = await fetch(`${url}${queryParams}`);
-    console.log("response", response);
     if (!response.ok) {
       throw new Error(`${response.status}: ${response.statusText}`);
     }
@@ -40,9 +41,12 @@ const constructSlideContent = (product) => {
   return slideContentElement;
 };
 
-const constructProductSlide = (product) => {
+const constructProductSlide = (product, index) => {
   const productSlideElement = document.createElement("li");
   productSlideElement.className = "slide-container";
+  productSlideElement.tabIndex = -1;
+  productSlideElement.setAttribute("index", index);
+  productSlideElement.addEventListener("click", handleSlideClick);
 
   const slideContentElement = constructSlideContent(product);
   productSlideElement.appendChild(slideContentElement);
@@ -88,6 +92,28 @@ const setSliderDisplayTo = (displayProp) => {
   sliderElement.style.display = displayProp;
 };
 
+const registerKeyboardScrollEventListeners = () => {
+  const slides = document.querySelectorAll(".slide-container");
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") {
+      currentIndex = (currentIndex + 1) % slides.length;
+      console.log("Current index after scroll right:", currentIndex);
+      slides[currentIndex].focus();
+    } else if (event.key === "ArrowLeft") {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      console.log("Current index after scroll left:", currentIndex);
+      slides[currentIndex].focus();
+    }
+  });
+};
+
+const handleSlideClick = (event) => {
+  const slideContainer = event.target.closest(".slide-container");
+  currentIndex = parseInt(slideContainer.getAttribute("index"));
+  slideContainer.focus();
+};
+
 const boot = async () => {
   await getProducts();
 
@@ -99,10 +125,13 @@ const boot = async () => {
   }
 
   setSliderDisplayTo("flex");
-  const productSlides = products.map((product) => {
-    return constructProductSlide(product);
+
+  const productSlides = products.map((product, index) => {
+    return constructProductSlide(product, index);
   });
+
   appendProductSlides(productSlides);
+  registerKeyboardScrollEventListeners();
   toggleLoading();
 };
 

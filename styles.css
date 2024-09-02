@@ -105,6 +105,7 @@ header {
   background-color: var(--bg-color-1);
   display: none;
   gap: 20px;
+  padding: 2px;
   overflow-x: scroll;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
@@ -187,6 +188,11 @@ header {
     min-width: 500px;
     max-width: 500px;
   }
+}
+
+.slider:focus,
+.slide-container:focus {
+  outline: 2px solid var(--accent-color);
 }
 
 /* I used help by Copilot to generate the following skeleton loading animation */
