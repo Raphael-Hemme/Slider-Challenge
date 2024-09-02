@@ -30,8 +30,18 @@ const constructSlideContent = (product) => {
   slideContentElement.style.backgroundSize = "contain";
   slideContentElement.style.backgroundPosition = "right";
   slideContentElement.style.backgroundRepeat = "no-repeat";
-  slideContentElement.style.background;
-  slideContentElement.innerHTML = `<h3 class="product-title">${product.title}</h3>`;
+
+  slideContentElement.innerHTML = `
+    <div>
+      <h3 class="product-brand">${product.brand}</h3>
+      <br />
+      <ul>
+        <li>$${product.price}</li>
+        <li>${product.availabilityStatus}</li>
+      </ul>
+    </div>
+    <h4 class="product-title">${product.title}</h4>
+  `;
 
   return slideContentElement;
 };
