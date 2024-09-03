@@ -140,9 +140,9 @@ header {
       grid-template-columns: 1fr 300px;
       grid-template-rows: 1fr 4fr 1fr;
       grid-template-areas:
-        "product-brand product-image"
-        "product-info  product-image"
-        "product-title product-image";
+        'product-brand product-image'
+        'product-info  product-image'
+        'product-title product-image';
       color: var(--text-color);
       overflow: hidden;
 
