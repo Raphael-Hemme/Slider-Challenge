@@ -21,19 +21,65 @@ const getProducts = async () => {
   }
 };
 
+const constructBrandElement = (brand) => {
+  const brandHeadingElement = document.createElement("h3");
+  brandHeadingElement.className = "product-brand";
+  brandHeadingElement.textContent = brand;
+  return brandHeadingElement;
+};
+
+const constructProductInfoElement = (price, availabilityStatus) => {
+  const productInfoElement = document.createElement("ul");
+  productInfoElement.className = "product-info";
+
+  const priceElement = document.createElement("li");
+  priceElement.textContent = `$${price}`;
+
+  const availabilityStatusElement = document.createElement("li");
+  availabilityStatusElement.textContent = availabilityStatus;
+
+  productInfoElement.appendChild(priceElement);
+  productInfoElement.appendChild(availabilityStatusElement);
+
+  return productInfoElement;
+};
+
+const constructProductImageElement = (thumbnail, title) => {
+  const productImageElement = document.createElement("img");
+  productImageElement.src = thumbnail;
+  productImageElement.alt = title;
+  productImageElement.className = "product-image";
+  return productImageElement;
+};
+
+const constructProductTitleElement = (title) => {
+  const productTitleElement = document.createElement("h4");
+  productTitleElement.className = "product-title";
+  productTitleElement.textContent = title;
+  return productTitleElement;
+};
+
 const constructSlideContent = (product) => {
   const slideContentElement = document.createElement("div");
   slideContentElement.className = "slide-content";
 
-  slideContentElement.innerHTML = `
-    <h3 class="product-brand">${product.brand}</h3>
-    <ul class="product-info">
-      <li>$${product.price}</li>
-      <li>${product.availabilityStatus}</li>
-    </ul>
-    <img src="${product.thumbnail}" alt="${product.title}" class="product-image"/>
-    <h4 class="product-title">${product.title}</h4>
-  `;
+  const brandElement = constructBrandElement(product.brand);
+  const productInfoElement = constructProductInfoElement(
+    product.price,
+    product.availabilityStatus
+  );
+  const productImageElement = constructProductImageElement(
+    product.thumbnail,
+    product.title
+  );
+  const productTitleElement = constructProductTitleElement(product.title);
+
+  slideContentElement.append(
+    brandElement,
+    productInfoElement,
+    productImageElement,
+    productTitleElement
+  );
 
   return slideContentElement;
 };
