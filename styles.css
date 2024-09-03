@@ -12,8 +12,9 @@ ul {
   margin: 0;
 }
 
-/* CSS Variables in :root scope to be used for light/dark theme */
+/* CSS Variables in :root scope to be used among other things for light/dark theme */
 :root {
+  /* Color Theming */
   --bg-color-1-dark: hsl(0, 0%, 20%);
   --bg-color-1-light: hsl(0, 0%, 94%);
 
@@ -34,6 +35,14 @@ ul {
 
   --skeleton-wave-color-light: hsla(0, 0%, 77%, 0.5);
   --skeleton-wave-color-dark: hsla(0, 0%, 30%, 0.5);
+
+  /* Fixed sizes, spacing etc. */
+  --padding-s: 15px;
+  --padding-l: 30px;
+
+  --slider-gap: 20px;
+  --slider-max-width: 1280px;
+  --slider-height: 300px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,17 +90,18 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  margin: 0 0 15px 0;
 
   @media (min-width: 1280px) {
-    width: 1280px;
+    margin: 0;
+    width: var(--slider-max-width);
   }
 }
 
 .slider,
 .skeleton-container,
 .error-container {
-  height: 300px;
+  height: var(--slider-height);
   width: calc(100% + 30px);
   margin: 0 -15px;
 
@@ -102,9 +112,8 @@ header {
 }
 
 .slider {
-  background-color: var(--bg-color-1);
   display: none;
-  gap: 20px;
+  gap: var(--slider-gap);
   padding: 2px;
   overflow-x: scroll;
   overflow-y: hidden;

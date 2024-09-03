@@ -8,15 +8,12 @@ let error = "";
 let currentIndex = 0;
 
 const getProducts = async () => {
-  console.log("Fetching products...", new Date().toLocaleTimeString());
-
   try {
     const response = await fetch(`${url}${queryParams}`);
     if (!response.ok) {
       throw new Error(`${response.status}: ${response.statusText}`);
     }
     const data = await response.json();
-    console.log(data);
     products = data.products;
   } catch (err) {
     console.error(err);
@@ -92,26 +89,38 @@ const setSliderDisplayTo = (displayProp) => {
   sliderElement.style.display = displayProp;
 };
 
+const scrollFocusedElementIntoView = (focusedElement) => {
+  focusedElement.scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+    inline: "center",
+  });
+};
+
+const getCurrSlideIndexAfterArrowKeyDown = (slideList, arrowKey) => {
+  indexChange = arrowKey === "ArrowRight" ? 1 : -1;
+  return (currentIndex + indexChange + slideList.length) % slideList.length;
+};
+
 const registerKeyboardScrollEventListeners = () => {
   const slides = document.querySelectorAll(".slide-container");
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") {
-      currentIndex = (currentIndex + 1) % slides.length;
-      console.log("Current index after scroll right:", currentIndex);
+    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+      currentIndex = getCurrSlideIndexAfterArrowKeyDown(slides, event.key);
       slides[currentIndex].focus();
-    } else if (event.key === "ArrowLeft") {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      console.log("Current index after scroll left:", currentIndex);
-      slides[currentIndex].focus();
+      scrollFocusedElementIntoView(slides[currentIndex]);
+    } else {
+      return;
     }
   });
 };
 
 const handleSlideClick = (event) => {
-  const slideContainer = event.target.closest(".slide-container");
-  currentIndex = parseInt(slideContainer.getAttribute("index"));
-  slideContainer.focus();
+  const slide = event.target.closest(".slide-container");
+  currentIndex = parseInt(slide.getAttribute("index"));
+  slide.focus();
+  scrollFocusedElementIntoView(slide);
 };
 
 const boot = async () => {
