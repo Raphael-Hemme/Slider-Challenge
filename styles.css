@@ -43,6 +43,9 @@ ul {
   --slider-gap: 20px;
   --slider-max-width: 1280px;
   --slider-height: 300px;
+
+  --slide-width-s: 500px;
+  --slide-width-l: 600px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -72,7 +75,7 @@ body {
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding: 15px;
+  padding: var(--padding-s);
   background-color: var(--bg-color-1);
   display: flex;
   flex-direction: column;
@@ -80,7 +83,7 @@ body {
   color: var(--text-color);
 
   @media (min-width: 1280px) {
-    padding: 30px;
+    padding: var(--padding-l);
     align-items: center;
   }
 }
@@ -102,12 +105,12 @@ header {
 .skeleton-container,
 .error-container {
   height: var(--slider-height);
-  width: calc(100% + 30px);
+  width: calc(100% + (2 * var(--padding-s)));
   margin: 0 -15px;
 
   @media (min-width: 1280px) {
     margin: 0;
-    width: 1280px;
+    width: var(--slider-max-width);
   }
 }
 
@@ -120,26 +123,26 @@ header {
   scroll-snap-type: x mandatory;
 
   .slide-container {
-    width: 500px;
-    min-width: 500px;
+    width: var(--slide-width-s);
+    min-width: var(--slide-width-s);
     height: 100%;
     background-color: var(--bg-color-2);
     container-type: inline-size;
     scroll-snap-align: center;
 
     @media (min-width: 1280px) {
-      width: 600px;
-      min-width: 600px;
+      width: var(--slide-width-l);
+      min-width: var(--slide-width-l);
     }
 
     .slide-content {
       height: 100%;
       display: grid;
-      grid-template-columns: minmax(30%, 300px) 300px;
+      grid-template-columns: 1fr 300px;
       grid-template-rows: 1fr 4fr 1fr;
       grid-template-areas:
         "product-brand product-image"
-        "product-info product-image"
+        "product-info  product-image"
         "product-title product-image";
       color: var(--text-color);
       overflow: hidden;
@@ -194,8 +197,8 @@ header {
      should be the one with a reduced width of 500px. Absolute second seems more intuitive from a design perspective to highlight the second slide
      but not intuitive that it is reduced in width - also seems much more complicated technically -> intersection observer or maybe with has() ...*/
   .slide-container:nth-child(2) {
-    min-width: 500px;
-    max-width: 500px;
+    min-width: var(--slide-width-s);
+    max-width: var(--slide-width-s);
   }
 }
 
